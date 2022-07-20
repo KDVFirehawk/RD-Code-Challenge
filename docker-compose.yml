@@ -1,0 +1,31 @@
+version: '3.4'
+
+networks:
+  parser-network:
+    driver: bridge
+
+volumes:
+  mysql-db:
+
+services:
+  db:
+    image: mysql:5.7
+    ports:
+      - '3306:3306'
+    env_file:
+      - db/.env
+    volumes:
+      - mysql-db:/var/lib/mysql
+    networks:
+      - parser-network
+
+  adminer:
+    image: adminer
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      - ADMINER_DEFAULT_SERVER=db
+    networks:
+      - parser-network

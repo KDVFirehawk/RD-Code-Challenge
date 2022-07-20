@@ -1,9 +1,9 @@
-const stream = require('fs').createReadStream('./code_challenge.csv');
+const stream = require('fs').createReadStream('./script/code_challenge.csv');
 const reader = require('readline').createInterface({ input: stream });
 
-const createConnection = require('./db/mysqlConnection');
-const createTable = require('./db/createTable');
-const writeToTable = require('./db/writeToTable');
+const createConnection = require('./mysqlConnection');
+const createTable = require('./createTable');
+const writeToTable = require('./writeToTable');
 
 async function readCsv() {
     const arr = [];
@@ -15,4 +15,5 @@ async function readCsv() {
     await createTable(connection);
     await writeToTable(connection, arr);
 }
+
 readCsv();
